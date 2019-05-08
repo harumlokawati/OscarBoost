@@ -1,0 +1,10 @@
+.dashboard-text {
+    color: white;
+}
+.dashboard-title {
+    color: white;
+}
+
+body {
+    overscroll-behavior: none;
+}

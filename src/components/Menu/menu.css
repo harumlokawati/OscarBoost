@@ -1,0 +1,14 @@
+.sidebar-menu {
+    width: 100%;
+}
+
+.image-menu {
+    width: 25px;
+    margin-right: 15px;
+}
+
+.menu {
+    display:inline;
+    width: 100%;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+}

@@ -1,0 +1,48 @@
+.paper {
+    text-align: center;
+    position: relative;
+    height: calc(100% - 10px);
+    margin-bottom: 20px;
+    min-height: 100px;
+}
+
+.graph-title {
+    padding-left: 10px;
+    text-align: left !important;
+    padding-top: 10px;
+    font-weight: bold;
+    color: #8C8C8C;
+    font-size: calc(0.5vh + 0.5vw);
+    margin-bottom: 5px !important;
+}
+
+.number-graph {
+    font-weight: bold;
+    color: #51277f;
+    font-size: calc(2.5vw);
+    margin-bottom: 0px !important;
+}
+
+.unit{
+    color: #8C8C8C;
+    font-size: calc(0.5vh + 0.5vw);
+}
+
+.value-container{
+    position: relative;
+    height:100%;
+}
+
+.value{
+    margin: 0;
+    position: relative;
+    top: 35%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.icon-chart{
+    width:calc(0.75vh + 0.75vw);
+    margin-right:10px;
+}

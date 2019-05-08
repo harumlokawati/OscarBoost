@@ -1,0 +1,8 @@
+.dashboard-container {
+    background-color: #4b4b4b;
+    height: auto;
+    width: 100%;
+    padding-left: 180px;
+    min-height: 100vh;
+    overflow-y: scroll;
+}

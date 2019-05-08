@@ -1,0 +1,12 @@
+.paper {
+    text-align: center;
+    position: relative; /* If you want text inside of it */
+    height: calc(100% - 10px);
+    margin-bottom:20px;
+}
+
+.graph-title {
+    padding-top: 10px;
+    font-size: calc(0.5vh + 0.5vw);
+    margin-bottom: 5px !important;
+}
