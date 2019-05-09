@@ -12,8 +12,8 @@ import {
 // import moment from "moment";
 import TimeSeries from "../../components/Chart/TimeSeries";
 
-let optionWeek = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53]
-let yearOption = [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019]
+let optionWeek = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53]
+let yearOption = [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019]
 
 class Main extends Component {
 
@@ -27,26 +27,26 @@ class Main extends Component {
         console.log(event.target.name, event.target.value, this.props)
         switch (event.target.name) {
             case "year_start":
-                dispatch(setOptions(event.target.value,week_start,year_end,week_end,nominated,won))
+                dispatch(setOptions(event.target.value, week_start, year_end, week_end, nominated, won))
                 return;
             case "year_end":
-                dispatch(setOptions(year_start,week_start,event.target.value,week_end,nominated,won))
+                dispatch(setOptions(year_start, week_start, event.target.value, week_end, nominated, won))
 
                 return;
             case "week_start":
-                dispatch(setOptions(year_start,event.target.value,year_end,week_end,nominated,won))
+                dispatch(setOptions(year_start, event.target.value, year_end, week_end, nominated, won))
 
                 return;
             case "week_end":
-                dispatch(setOptions(year_start,week_start,year_end,event.target.value,nominated,won))
+                dispatch(setOptions(year_start, week_start, year_end, event.target.value, nominated, won))
 
                 return;
             case "nominated":
-                dispatch(setOptions(year_start,week_start,year_end,week_end,event.target.value,won))
+                dispatch(setOptions(year_start, week_start, year_end, week_end, event.target.value, won))
 
                 return;
             case "won":
-                dispatch(setOptions(year_start,week_start,year_end,week_end,nominated,event.target.value))
+                dispatch(setOptions(year_start, week_start, year_end, week_end, nominated, event.target.value))
         }
 
 
@@ -57,6 +57,7 @@ class Main extends Component {
     }
 
     render() {
+        console.log(this.props.movieGross)
         let keys = [
             {
                 "dataKey": "gross",
@@ -76,7 +77,7 @@ class Main extends Component {
             {week: 7, week_film: 16, gross: 1641848},
         ]
         return (<div className="app">
-            <div className="header mb-5">
+            <div className="header mb-3">
                 <div className="dashboard-text">THE OSCAR BOOST</div>
                 <Row>
                     <div className="partition-50 dashboard-title">Every year, Academy of Motion Picture Arts and
@@ -92,30 +93,34 @@ class Main extends Component {
                 </Row>
             </div>
             <div className="mb-5">
-                <IntervalOption type="start" className="mr-1" valueYear={this.props.year_start} valueWeek={this.props.week_start} title="Start" disabled={this.props.selected_movies.length > 0}
+                <IntervalOption type="start" className="mr-1" valueYear={this.props.year_start}
+                                valueWeek={this.props.week_start} title="Start"
+                                disabled={this.props.selected_movies.length > 0}
                                 optionYear={yearOption} optionWeek={optionWeek} handleChange={this.handleChange}/>
-                <IntervalOption type="end" className="mr-1" valueYear={this.props.year_end} valueWeek={this.props.week_end} title="End" disabled={this.props.selected_movies.length > 0}
+                <IntervalOption type="end" className="mr-1" valueYear={this.props.year_end}
+                                valueWeek={this.props.week_end} title="End"
+                                disabled={this.props.selected_movies.length > 0}
                                 optionYear={yearOption} optionWeek={optionWeek} handleChange={this.handleChange}/>
-                <OscarOption name="nominated" className="mr-1" value={this.props.nominated} title="Nominated" disabled={this.props.selected_movies.length > 0}
+                <OscarOption name="nominated" className="mr-1" value={this.props.nominated} title="Nominated"
+                             disabled={this.props.selected_movies.length > 0}
                              handleChange={this.handleChange}/>
-                <OscarOption name="won" className="mr-1" value={this.props.won} title="Awarded" disabled={this.props.selected_movies.length > 0}
+                <OscarOption name="won" className="mr-1" value={this.props.won} title="Awarded"
+                             disabled={this.props.selected_movies.length > 0}
                              handleChange={this.handleChange}/>
-                             <MovieOption movielist={this.props.movieList}/>
+                <MovieOption movielist={this.props.movieList}/>
 
             </div>
-            <Row>
-                <div className="partition-90">
-                    <TimeSeries data={data} oscarweek={2} dataKeys={keys} title={"Weekly Gross"} height={350}
-                                name="weekly_gross"/>
-                </div>
-            </Row>
+            <TimeSeries data={this.props.movieGross} oscarweek={'2018/2'} dataKeys={this.props.selected_movies}
+                        title={"Weekly Gross"} height={350}
+                        name="weekly_gross"/>
+
 
         </div>)
     }
 }
 
 function mapStateToProps(state) {
-    const {year_start, year_end, week_start, week_end, oscar_selected, selected_movies, movieList, data, nominated, won} = state.resource
+    const {year_start, year_end, week_start, week_end, oscar_selected, selected_movies, movieList, movieGross, nominated, won} = state.resource
     return {
         oscar_selected: oscar_selected,
         selected_movies: selected_movies,
@@ -124,9 +129,9 @@ function mapStateToProps(state) {
         week_start: week_start,
         week_end: week_end,
         movieList: movieList,
-        data: data,
-        nominated:nominated,
-        won:won
+        movieGross: movieGross,
+        nominated: nominated,
+        won: won
     }
 }
 

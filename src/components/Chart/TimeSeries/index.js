@@ -12,7 +12,11 @@ import React, {Component} from "react";
 class TimeSeries extends Component {
 
     getTick(tick) {
-        return tick/1000000 + "M";
+        if(Number(tick)>=100000){
+            return Number(tick)/1000000 + "M";
+        }else {
+            return Number(tick)/1000 + "K";
+        }
     }
 
     renderLabel(){
@@ -24,10 +28,10 @@ class TimeSeries extends Component {
                 <ResponsiveContainer width='100%' height={this.props.height}>
                     <LineChart data={this.props.data}
                                margin={{top: 20, right: 30, left: 0, bottom: 0}}>
-                        <XAxis stroke="#FFFFFF" dataKey="week" dx={10} label="week"/>
-                        <YAxis stroke="#FFFFFF" type="number" tickFormatter={this.getTick} label="gross"/>
+                        <XAxis stroke="#FFFFFF" dataKey="axis" dx={10}/>
+                        <YAxis stroke="#FFFFFF" type="number" tickFormatter={this.getTick}/>
                         <Tooltip/>
-                        <ReferenceLine x={this.props.oscarweek} stroke="white" label={this.renderLabel} />
+                        <ReferenceLine x={this.props.oscarweek} stroke="white" />
                         {this.renderLine(this.props.dataKeys)}
                     </LineChart>
                 </ResponsiveContainer>
@@ -37,9 +41,19 @@ class TimeSeries extends Component {
     renderLine(datakeys) {
         return datakeys.map((item, index) => {
             return (
-                <Line key={index} dataKey={item.dataKey} stroke={item.color} strokeWidth={1} dot={false}/>
+                <Line key={index} dataKey={item.value} stroke={this.getRandomColor()} strokeWidth={1} dot={false}/>
             );
         });
+    }
+
+    getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        console.log(color)
+        return color;
     }
 }
 

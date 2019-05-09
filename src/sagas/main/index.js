@@ -1,6 +1,6 @@
 import {put, call, takeLatest} from 'redux-saga/effects'
 import {
-    GET_MOVIE_LIST, SET_OPTIONS
+    GET_MOVIE_LIST, SET_OPTIONS, GET_MOVIE_GROSS, SET_SELECTED_MOVIES
 } from "actions/main/constants"
 import * as act from 'actions/main'
 import * as api from 'api/main'
@@ -18,6 +18,23 @@ function* getMovieList(request) {
     }
 }
 
+function* getMovieGross(request) {
+    try {
+        const {payload: {year_start,week_start, year_end, week_end, selected_movies}} = request
+        if(selected_movies.length>0){
+            let movieGross = yield call(api.getMovieGross,year_start,week_start, year_end, week_end, selected_movies)
+            console.log(movieGross)
+            yield put(act.setMovieGross(movieGross))
+
+        }
+    } catch (e) {
+        console.log(e)
+    } finally {
+        console.log("success")
+    }
+}
+
 export default function* mainSaga() {
     yield takeLatest([GET_MOVIE_LIST,SET_OPTIONS], getMovieList)
+    yield takeLatest([SET_SELECTED_MOVIES, GET_MOVIE_GROSS], getMovieGross)
 }

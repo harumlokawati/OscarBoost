@@ -187,8 +187,8 @@ class MovieOption extends React.Component {
         this.setState({
             [name]: value,
         });
-        const {dispatch} = this.props
-        dispatch(setSelectedMovies(value))
+        const {dispatch, year_start, year_end, week_start, week_end} = this.props
+        dispatch(setSelectedMovies(year_start, week_start, year_end, week_end,value))
     };
 
     render() {
