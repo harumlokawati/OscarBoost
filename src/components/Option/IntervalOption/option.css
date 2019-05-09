@@ -52,3 +52,6 @@
     width: auto;
     top: 10%;
 }
+.menu-props{
+    max-height: 350px;
+}

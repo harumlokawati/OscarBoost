@@ -1,17 +1,23 @@
 import {
-    RESOURCE_SET_OPTION_TIME_END,
-    RESOURCE_SET_OPTION_TIME_START,
-    RESOURCE_SET_OPTION_INTERVAL,
+    SET_MOVIE_LIST,
+    SET_SELECTED_MOVIES,
+    SET_OPTIONS
 } from '../../actions/main/constants'
 import {isFSA} from 'flux-standard-action'
 import invariant from 'invariant'
-import moment from "moment";
 
 let initialState = {
-    interval: '1m',
-    timeEnd: moment().utc().format(),
-    timeStart: moment().add(-2, 'hour').utc().format(),
-    data:[],
+    oscar_selected: '',
+    nominated:false,
+    won:false,
+    selected_movies: [],
+    year_start: 2018,
+    year_end: 2018,
+    week_start: 1,
+    week_end: 5,
+    movieList: [],
+    data: [],
+    disable_form:false
 }
 
 
@@ -23,12 +29,13 @@ const reducer = (state = initialState, action) => {
 
     const {payload = {}} = action
     switch (action.type) {
-        case RESOURCE_SET_OPTION_TIME_END:
-            return {...state, timeEnd: payload.timeEnd}
-        case RESOURCE_SET_OPTION_TIME_START:
-            return {...state, timeStart: payload.timeStart}
-        case RESOURCE_SET_OPTION_INTERVAL:
-            return {...state, interval: payload.interval}
+        case SET_MOVIE_LIST:
+            return {...state, movieList: payload.movieList}
+        case SET_SELECTED_MOVIES:
+            return {...state, selected_movies: payload.selected_movies}
+        case SET_OPTIONS:
+            console.log(payload)
+            return {...state, year_start: payload.year_start, year_end: payload.year_end, week_start: payload.week_start, week_end: payload.week_end, nominated:payload.nominated, won:payload.won }
         default:
             return {...state}
     }

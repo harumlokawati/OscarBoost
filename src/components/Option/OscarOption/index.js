@@ -26,20 +26,28 @@ class OscarOption extends Component {
                     }
                 }}>
                     <TextField
+                        disabled={this.props.disabled}
                         InputProps={{disableUnderline: true, className: classes.input}}
                         id="oscar-form"
                         select
-                        name={"oscar"}
+                        name={this.props.name}
                         className="option-field w-100"
                         value={this.props.value}
                         onChange={this.props.handleChange}
                         SelectProps={{
                             MenuProps: {
-                                className: "w-200",
+                                className: "w-200 menu-props",
                             },
                         }}
                         margin="normal">
-                        {this.renderOption(this.props.option)}
+
+                        <MenuItem className="option-item" key={1} value={true}>
+                            true
+                        </MenuItem>
+
+                        <MenuItem className="option-item" key={2} value={false}>
+                            false
+                        </MenuItem>
                     </TextField>
                 </FormControl>
             </div>
@@ -50,8 +58,8 @@ class OscarOption extends Component {
     renderOption(menu) {
         return menu.map(function (item, index) {
             return (
-                <MenuItem className="option-item" key={index} value={item.value}>
-                    {item.text}
+                <MenuItem className="option-item" key={index} value={item}>
+                    {item}
                 </MenuItem>
             )
         })

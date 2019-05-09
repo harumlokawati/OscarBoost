@@ -3,38 +3,53 @@ import './main.css'
 import {connect} from "react-redux";
 import IntervalOption from "../../components/Option/IntervalOption";
 import OscarOption from "../../components/Option/OscarOption";
+import MovieOption from "../../components/Option/MovieOption";
 import {Col, Row} from "reactstrap";
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import {
-    setOptionTimeEnd,
-    setOptionTimeStart,
-    setOptionInterval,
+    getMovieList, setOptions
 } from "../../actions/main";
-import moment from "moment";
+// import moment from "moment";
 import TimeSeries from "../../components/Chart/TimeSeries";
+
+let optionWeek = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53]
+let yearOption = [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019]
 
 class Main extends Component {
 
     componentWillMount() {
-
+        const {dispatch, year_start, week_start, year_end, week_end} = this.props
+        dispatch(getMovieList(year_start, week_start, year_end, week_end, false, false))
     }
 
     handleChange = event => {
-        const {dispatch, timeEnd, timeStart} = this.props
-        const {name, value} = event.target;
-        if (name == 'interval') {
-            dispatch(setOptionInterval(timeEnd, timeStart, value))
+        const {dispatch, year_start, week_start, year_end, week_end, nominated, won} = this.props
+        console.log(event.target.name, event.target.value, this.props)
+        switch (event.target.name) {
+            case "year_start":
+                dispatch(setOptions(event.target.value,week_start,year_end,week_end,nominated,won))
+                return;
+            case "year_end":
+                dispatch(setOptions(year_start,week_start,event.target.value,week_end,nominated,won))
+
+                return;
+            case "week_start":
+                dispatch(setOptions(year_start,event.target.value,year_end,week_end,nominated,won))
+
+                return;
+            case "week_end":
+                dispatch(setOptions(year_start,week_start,year_end,event.target.value,nominated,won))
+
+                return;
+            case "nominated":
+                dispatch(setOptions(year_start,week_start,year_end,week_end,event.target.value,won))
+
+                return;
+            case "won":
+                dispatch(setOptions(year_start,week_start,year_end,week_end,nominated,event.target.value))
         }
-    }
 
-    handleDateStartChange = date => {
-        const {dispatch, timeEnd, interval} = this.props
-        dispatch(setOptionTimeStart(timeEnd, moment(date.toDate()).utc().format(), interval))
-    }
 
-    handleDateEndChange = date => {
-        const {dispatch, timeStart, interval} = this.props
-        dispatch(setOptionTimeEnd(moment(date.toDate()).utc().format(), timeStart, interval))
     }
 
     constructor(props) {
@@ -48,68 +63,6 @@ class Main extends Component {
                 "color": "#cc9933"
             }
         ]
-        let oscar_option = [
-            {
-                "value": "won",
-                "text": "won"
-            },
-            {
-                "value": "nominated",
-                "text": "nominated"
-            },
-            {
-                "value": "non nominated",
-                "text": "not nominated"
-            },
-        ]
-        let movieoptions = [
-            {
-                "value": "Brooklyn",
-                "text": "Brooklyn"
-            }
-        ]
-
-        let weekoption = [{
-            "value": 1,
-            "text": 1
-        },
-            {
-                "value": 2,
-                "text": 2
-            },
-            {
-                "value": 3,
-                "text": 3
-            },
-            {
-                "value": 50,
-                "text": 50
-            },
-            {
-                "value": 51,
-                "text": 51
-            },
-            {
-                "value": 52,
-                "text": 52
-            },
-            {
-                "value": 6,
-                "text": 6
-            },
-            {
-                "value": 7,
-                "text": 7
-            }
-            ]
-        let yearoption = [{
-            "value": 2018,
-            "text": 2018
-        },
-            {
-                "value": 2019,
-                "text": 2019
-            }]
         let data = [
             {week: 50, week_film: 7, gross: 2962990},
             {week: 51, week_film: 8, gross: 2018502},
@@ -126,25 +79,34 @@ class Main extends Component {
             <div className="header mb-5">
                 <div className="dashboard-text">THE OSCAR BOOST</div>
                 <Row>
-                    <div className="partition-50 dashboard-title">Every year, Academy of Motion Picture Arts and Sciences nominate several movies as Best Motion Pictures. Although we often think that this award is about appreciation to art and science, there is money looming from behind.</div>
-                    <div className="partition-50 dashboard-title">Most movies tend to have a hype. They have high grossing in the first week and then the amount of viewing starts diminishing. However, things are different with Oscar nominated movies. They get a bump in their viewing after the announcement of their nomination</div>
+                    <div className="partition-50 dashboard-title">Every year, Academy of Motion Picture Arts and
+                        Sciences nominate several movies as Best Motion Pictures. Although we often think that this
+                        award is about appreciation to art and science, there is money looming from behind.
+                    </div>
+                    <div className="partition-50 dashboard-title">Most movies tend to have a hype. They have high
+                        grossing in the first week and then the amount of viewing starts diminishing. However, things
+                        are different with Oscar nominated movies. They get a bump in their viewing after the
+                        announcement of their nomination
+                    </div>
 
                 </Row>
-                </div>
+            </div>
             <div className="mb-5">
-                <IntervalOption className="mr-1" valueYear={2018} valueWeek={50} title="Start"
-                                optionYear={yearoption} optionWeek={weekoption} handleChange={this.handleChange}/>
-                <IntervalOption className="mr-1" valueYear={2019} valueWeek={7} title="Start"
-                                optionYear={yearoption} optionWeek={weekoption} handleChange={this.handleChange}/>
-                <OscarOption className="mr-1" value={"won"} title="Oscar"
-                             option={oscar_option} handleChange={this.handleChange}/>
-                    <OscarOption className="mr-1" value={"Brooklyn"} title="Add Movie"
-                             option={movieoptions} handleChange={this.handleChange}/>
+                <IntervalOption type="start" className="mr-1" valueYear={this.props.year_start} valueWeek={this.props.week_start} title="Start" disabled={this.props.selected_movies.length > 0}
+                                optionYear={yearOption} optionWeek={optionWeek} handleChange={this.handleChange}/>
+                <IntervalOption type="end" className="mr-1" valueYear={this.props.year_end} valueWeek={this.props.week_end} title="End" disabled={this.props.selected_movies.length > 0}
+                                optionYear={yearOption} optionWeek={optionWeek} handleChange={this.handleChange}/>
+                <OscarOption name="nominated" className="mr-1" value={this.props.nominated} title="Nominated" disabled={this.props.selected_movies.length > 0}
+                             handleChange={this.handleChange}/>
+                <OscarOption name="won" className="mr-1" value={this.props.won} title="Awarded" disabled={this.props.selected_movies.length > 0}
+                             handleChange={this.handleChange}/>
+                             <MovieOption movielist={this.props.movieList}/>
 
             </div>
             <Row>
                 <div className="partition-90">
-                    <TimeSeries data={data} oscarweek={2} dataKeys={keys} title={"Weekly Gross"} height={350} name="weekly_gross"/>
+                    <TimeSeries data={data} oscarweek={2} dataKeys={keys} title={"Weekly Gross"} height={350}
+                                name="weekly_gross"/>
                 </div>
             </Row>
 
@@ -153,11 +115,18 @@ class Main extends Component {
 }
 
 function mapStateToProps(state) {
-    const {interval, timeStart, timeEnd} = state.resource
+    const {year_start, year_end, week_start, week_end, oscar_selected, selected_movies, movieList, data, nominated, won} = state.resource
     return {
-        interval: interval,
-        timeStart: timeStart,
-        timeEnd: timeEnd
+        oscar_selected: oscar_selected,
+        selected_movies: selected_movies,
+        year_start: year_start,
+        year_end: year_end,
+        week_start: week_start,
+        week_end: week_end,
+        movieList: movieList,
+        data: data,
+        nominated:nominated,
+        won:won
     }
 }
 
