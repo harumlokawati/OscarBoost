@@ -1,10 +1,32 @@
 .dashboard-text {
-    color: white;
+    color: #ffca08;
+    font-size: 30px;
 }
 .dashboard-title {
-    color: white;
+    color: #ffca08;
+}
+
+.color-1{
+    color: #FFFFFF;
+}
+
+.color-2{
+    color: #ffca08;
+}
+
+.color-3{
+    color: #f8931d;
+}
+
+.color-4{
+    color: #ec7016;
+}
+
+.color-5{
+    color: #cc9933;
 }
 
 body {
     overscroll-behavior: none;
+    font-family: Century Gothic,CenturyGothic,AppleGothic,sans-serif;
 }

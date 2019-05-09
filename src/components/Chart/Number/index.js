@@ -8,7 +8,6 @@ class Number extends Component {
             <Paper className="paper" style={{borderRadius: "7pt"}}>
 
                 <p className="graph-title">
-                    <img src={require('assets/image/tenant.png')} className='icon-chart'/>
                     {this.props.title}
                 </p>
                 <hr/>

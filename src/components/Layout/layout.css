@@ -1,8 +1,16 @@
 .dashboard-container {
-    background-color: #4b4b4b;
+    background-color: #0f0e00;
     height: auto;
     width: 100%;
-    padding-left: 180px;
+    padding-left: 400px;
     min-height: 100vh;
     overflow-y: scroll;
+}
+
+
+.oscar-art{
+    width:300px;
+    height:auto;
+    left:0;
+    position: fixed;
 }

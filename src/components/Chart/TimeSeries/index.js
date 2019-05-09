@@ -34,21 +34,15 @@ class TimeSeries extends Component {
     render() {
 
         return (
-
-            <Paper className="paper" style={{borderRadius: "7pt"}}>
-                <p className="graph-title">{this.props.title}</p>
-                <hr/>
                 <ResponsiveContainer width='100%' height={this.props.height}>
                     <LineChart data={this.props.data}
                                margin={{top: 20, right: 30, left: -10, bottom: 0}}>
-                        <CartesianGrid strokeDasharray="3 3"/>
-                        <XAxis dataKey="time" interval={this.getInterval()} tickFormatter={this.getTick} dx={10}/>
-                        <YAxis/>
+                        <XAxis stroke="#FFFFFF" dataKey="time" interval={this.getInterval()} tickFormatter={this.getTick} dx={10}/>
+                        <YAxis stroke="#FFFFFF"/>
                         <Tooltip/>
                         {this.renderLine(this.props.dataKeys)}
                     </LineChart>
                 </ResponsiveContainer>
-            </Paper>
         )
     }
 
