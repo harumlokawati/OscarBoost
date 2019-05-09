@@ -30,6 +30,7 @@
     "react-router-dom": "^5.0.0",
     "react-router-redux": "^4.0.8",
     "react-scripts": "3.0.0",
+    "react-select-search": "^0.9.6",
     "react-stomp": "^4.1.0",
     "reactstrap": "^8.0.0",
     "recharts": "^1.5.0",

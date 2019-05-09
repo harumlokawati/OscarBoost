@@ -10,7 +10,7 @@ const styles = {
     }
 };
 
-class IntervalOption extends Component {
+class OscarOption extends Component {
     render() {
 
         const {classes} = this.props;
@@ -20,28 +20,6 @@ class IntervalOption extends Component {
                     <p className="option-title-text">
                         {this.props.title}</p>
                 </div>
-                <FormControl className="option-form-1" style={{
-                    paddingLeft: '10px', className: {
-                        input: {color: 'white'}
-                    }
-                }}>
-                    <TextField
-                        InputProps={{disableUnderline: true, className: classes.input}}
-                        id="interval-form"
-                        select
-                        name={"year"}
-                        className="option-field w-100"
-                        value={this.props.valueYear}
-                        onChange={this.props.handleChange}
-                        SelectProps={{
-                            MenuProps: {
-                                className: "w-200",
-                            },
-                        }}
-                        margin="normal">
-                        {this.renderOption(this.props.optionYear)}
-                    </TextField>
-                </FormControl>
                 <FormControl className="option-form" style={{
                     paddingLeft: '10px', className: {
                         input: {color: 'white'}
@@ -49,11 +27,11 @@ class IntervalOption extends Component {
                 }}>
                     <TextField
                         InputProps={{disableUnderline: true, className: classes.input}}
-                        id="interval-form"
+                        id="oscar-form"
                         select
-                        name={"weeek"}
+                        name={"oscar"}
                         className="option-field w-100"
-                        value={this.props.valueWeek}
+                        value={this.props.value}
                         onChange={this.props.handleChange}
                         SelectProps={{
                             MenuProps: {
@@ -61,7 +39,7 @@ class IntervalOption extends Component {
                             },
                         }}
                         margin="normal">
-                        {this.renderOption(this.props.optionWeek)}
+                        {this.renderOption(this.props.option)}
                     </TextField>
                 </FormControl>
             </div>
@@ -86,4 +64,4 @@ Option.propTypes = {
 };
 
 
-export default withStyles(styles)(IntervalOption)
+export default withStyles(styles)(OscarOption)

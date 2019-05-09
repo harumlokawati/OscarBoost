@@ -1,45 +1,33 @@
 import {
     Line,
-    CartesianGrid,
+    ReferenceLine,
     LineChart,
     ResponsiveContainer,
     Tooltip,
     XAxis,
     YAxis
 } from "recharts";
-import Paper from "@material-ui/core/Paper";
 import React, {Component} from "react";
-import moment from "moment"
 
 class TimeSeries extends Component {
-    getInterval() {
-        if (this.props.data) {
-            return Math.round(this.props.data.length / 10)
-        } else {
-            return 1
-        }
-
-    }
 
     getTick(tick) {
-        let diff = moment.duration(moment(tick).diff(moment()));
-        console.log()
-        if (diff.asDays() <= -1) {
-            return moment(tick).format('DD/MM HH:mm')
-        } else {
-            return moment(tick).format('HH:mm')
-        }
+        return tick/1000000 + "M";
     }
 
+    renderLabel(){
+        return(<p className="color:white;">Nomination Week</p>)
+    }
     render() {
 
         return (
                 <ResponsiveContainer width='100%' height={this.props.height}>
                     <LineChart data={this.props.data}
-                               margin={{top: 20, right: 30, left: -10, bottom: 0}}>
-                        <XAxis stroke="#FFFFFF" dataKey="time" interval={this.getInterval()} tickFormatter={this.getTick} dx={10}/>
-                        <YAxis stroke="#FFFFFF"/>
+                               margin={{top: 20, right: 30, left: 0, bottom: 0}}>
+                        <XAxis stroke="#FFFFFF" dataKey="week" dx={10} label="week"/>
+                        <YAxis stroke="#FFFFFF" type="number" tickFormatter={this.getTick} label="gross"/>
                         <Tooltip/>
+                        <ReferenceLine x={this.props.oscarweek} stroke="white" label={this.renderLabel} />
                         {this.renderLine(this.props.dataKeys)}
                     </LineChart>
                 </ResponsiveContainer>

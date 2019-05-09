@@ -2,7 +2,9 @@
     background-color: #0f0e00;
     height: auto;
     width: 100%;
-    padding-left: 400px;
+    padding-left: 380px;
+    padding-right: 380px;
+    padding-top: 50px;
     min-height: 100vh;
     overflow-y: scroll;
 }
@@ -12,5 +14,13 @@
     width:300px;
     height:auto;
     left:0;
+    position: fixed;
+}
+
+.popcorn{
+    width:300px;
+    height:auto;
+    right:0;
+    top:0;
     position: fixed;
 }

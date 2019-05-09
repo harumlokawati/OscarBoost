@@ -6,8 +6,10 @@ class Layout extends Component {
             <div>
                 <div className="dashboard-container">
                     <img src={require('../../assets/image/oscar.png')} className='oscar-art'/>
+                    <img src={require('../../assets/image/Popcorn.png')} className='popcorn'/>
                     {/*<img src={art} className='art'/>*/}
                     {this.props.children}
+
                 </div>
             </div>
         )
