@@ -40,3 +40,18 @@ export function getMovieGross(year_start, week_start, year_end, week_end, select
             return Promise.reject(err)
         })
 }
+
+export function getMovieCategory(selected_movies) {
+    return axios.post(url.GET_MOVIE_CATEGORY_URL,
+        {
+            movies: selected_movies
+        }
+    )
+        .then(res => {
+            return Promise.resolve(res.data)
+        })
+        .catch(err => {
+
+            return Promise.reject(err)
+        })
+}

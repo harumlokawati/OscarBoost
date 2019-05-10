@@ -2,15 +2,16 @@ import {
     SET_MOVIE_LIST,
     SET_SELECTED_MOVIES,
     SET_OPTIONS,
-    SET_MOVIE_GROSS
+    SET_MOVIE_GROSS,
+    SET_MOVIE_CATEGORY
 } from '../../actions/main/constants'
 import {isFSA} from 'flux-standard-action'
 import invariant from 'invariant'
 
 let initialState = {
     oscar_selected: '',
-    nominated:false,
-    won:false,
+    nominated:null,
+    won:null,
     selected_movies: [],
     year_start: 2018,
     year_end: 2018,
@@ -18,7 +19,8 @@ let initialState = {
     week_end: 5,
     movieList: [],
     movieGross: [],
-    disable_form:false
+    disable_form:false,
+    movieCategory: {}
 }
 
 
@@ -38,6 +40,8 @@ const reducer = (state = initialState, action) => {
             return {...state, year_start: payload.year_start, year_end: payload.year_end, week_start: payload.week_start, week_end: payload.week_end, nominated:payload.nominated, won:payload.won }
         case SET_MOVIE_GROSS:
             return {...state, movieGross: payload.movieGross}
+        case SET_MOVIE_CATEGORY:
+            return {...state, movieCategory: payload.movieCategory}
         default:
             return {...state}
     }

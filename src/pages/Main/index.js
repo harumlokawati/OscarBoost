@@ -104,15 +104,15 @@ class Main extends Component {
                 <OscarOption name="nominated" className="mr-1" value={this.props.nominated} title="Nominated"
                              disabled={this.props.selected_movies.length > 0}
                              handleChange={this.handleChange}/>
-                <OscarOption name="won" className="mr-1" value={this.props.won} title="Awarded"
-                             disabled={this.props.selected_movies.length > 0}
-                             handleChange={this.handleChange}/>
+                {/*<OscarOption name="won" className="mr-1" value={this.props.won} title="Awarded"*/}
+                {/*             disabled={this.props.selected_movies.length > 0}*/}
+                {/*             handleChange={this.handleChange}/>*/}
                 <MovieOption movielist={this.props.movieList}/>
 
             </div>
             <TimeSeries data={this.props.movieGross} oscarweek={'2018/2'} dataKeys={this.props.selected_movies}
                         title={"Weekly Gross"} height={350}
-                        name="weekly_gross"/>
+                        name="weekly_gross" categories={this.props.movieCategory}/>
 
 
         </div>)
@@ -120,7 +120,7 @@ class Main extends Component {
 }
 
 function mapStateToProps(state) {
-    const {year_start, year_end, week_start, week_end, oscar_selected, selected_movies, movieList, movieGross, nominated, won} = state.resource
+    const {year_start, year_end, week_start, week_end, oscar_selected, selected_movies, movieList, movieGross, nominated, won,movieCategory} = state.resource
     return {
         oscar_selected: oscar_selected,
         selected_movies: selected_movies,
@@ -131,7 +131,8 @@ function mapStateToProps(state) {
         movieList: movieList,
         movieGross: movieGross,
         nominated: nominated,
-        won: won
+        won: won,
+        movieCategory:movieCategory
     }
 }
 

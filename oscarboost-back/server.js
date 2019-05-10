@@ -41,6 +41,40 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.post('/postmoviecategory',function(req,res){
+    var movies = req.body.movies;
+    var title_q = `(`;
+    var i = 0;
+    do {
+        title_q += `title='` + movies[i].value.split("'").join("''") + `'`
+        i++;
+        if (i < movies.length) {
+            title_q += ' OR '
+        }
+    }
+    while (i < movies.length);
+    title_q += `)`
+
+    var query = `SELECT DISTINCT title,is_nominated, is_awarded FROM weekly_gross WHERE ` + title_q
+
+    console.log(query)
+    pool.connect(function (err, db, done) {
+        if (err) {
+            return res.status(400).send(err)
+        } else {
+            db.query(query, (err, table) => {
+                done();
+                if (err) {
+                    return res.status(400).send(err)
+                } else {
+                    res.status(200).send(processcategory(table.rows))
+                }
+            })
+        }
+    })
+
+})
+
 app.get('/getmovielist', function (req, res) {
     var year_start = req.query.year_start
     var year_end = req.query.year_end
@@ -127,6 +161,18 @@ app.post('/postmoviegross', function (req, res) {
         }
     })
 })
+
+function processcategory(rows) {
+    let result = {}
+    for (i in rows) {
+        let attr = {}
+        attr["nominated"] = rows[i]['is_nominated']
+        attr["won"] = rows[i]["is_awarded"]
+        result[rows[i]['title']]= attr;
+    }
+    // console.log(Array.from(result.values()))
+    return result;
+}
 
 function process(rows, movies) {
     let result = new Map

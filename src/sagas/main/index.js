@@ -23,9 +23,11 @@ function* getMovieGross(request) {
         const {payload: {year_start,week_start, year_end, week_end, selected_movies}} = request
         if(selected_movies.length>0){
             let movieGross = yield call(api.getMovieGross,year_start,week_start, year_end, week_end, selected_movies)
-            console.log(movieGross)
-            yield put(act.setMovieGross(movieGross))
+            let movieCategory = yield call(api.getMovieCategory,selected_movies)
 
+            console.log(movieGross, movieCategory)
+            yield put(act.setMovieGross(movieGross))
+            yield put(act.setMovieCategory(movieCategory))
         }
     } catch (e) {
         console.log(e)

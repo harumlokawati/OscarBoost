@@ -32,28 +32,32 @@ class TimeSeries extends Component {
                         <YAxis stroke="#FFFFFF" type="number" tickFormatter={this.getTick}/>
                         <Tooltip/>
                         <ReferenceLine x={this.props.oscarweek} stroke="white" />
-                        {this.renderLine(this.props.dataKeys)}
+                        {this.renderLine(this.props.dataKeys, this.props.categories)}
                     </LineChart>
                 </ResponsiveContainer>
         )
     }
 
-    renderLine(datakeys) {
+    renderLine(datakeys,categories) {
+        console.log(categories)
         return datakeys.map((item, index) => {
             return (
-                <Line key={index} dataKey={item.value} stroke={this.getRandomColor()} strokeWidth={1} dot={false}/>
+                <Line key={index} dataKey={item.value}
+                      stroke={"#ffca08"}
+                      // stroke={this.getColor(categories,item.value)}
+                      strokeWidth={1} dot={false}/>
             );
         });
     }
 
-    getRandomColor() {
-        var letters = '0123456789ABCDEF';
-        var color = '#';
-        for (var i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
+    getColor(cat, value) {
+        if(cat["12 Strong"]["nominated"]){
+            return "#ffca08"
+        }else if(cat[value]["won"]){
+            return "#ec7016"
+        }else{
+            return "#b1b1b1"
         }
-        console.log(color)
-        return color;
     }
 }
 

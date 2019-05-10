@@ -4,7 +4,7 @@ import {
     SET_SELECTED_MOVIES,
     SET_OPTIONS,
     GET_MOVIE_GROSS,
-    SET_MOVIE_GROSS
+    SET_MOVIE_GROSS, SET_MOVIE_CATEGORY
 } from './constants'
 
 export function getMovieList(year_start,week_start, year_end, week_end, nominated,won) {
@@ -31,6 +31,9 @@ export function getMovieGross(year_start,week_start, year_end, week_end, selecte
 
 export function setMovieGross(movieGross){
     return {type: SET_MOVIE_GROSS, payload: {movieGross}}
+}
+export function setMovieCategory(movieCategory){
+    return {type: SET_MOVIE_CATEGORY, payload: {movieCategory}}
 }
 
 // export function setYearStart(year_start,week_start, year_end, week_end, nominated,won){
